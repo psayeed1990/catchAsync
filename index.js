@@ -1,5 +1,8 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
+
+app.use(cors());
 
 //create catchAsyncFunction
 function catchAsyncFunction(asyncFunction) {
@@ -11,7 +14,11 @@ function catchAsyncFunction(asyncFunction) {
 //define your route here
 const homeController = catchAsyncFunction(async (req, res, next) => {
     //const data = await
-    throw new Error();
+    //res.json({ msg: "no err" });
+
+    throw new Error("Error happened");
+    //this code will automatically go to error catch middleware
+    //no need next() because it passes to the next middleware defined after the route
 });
 
 //your route middleware here
@@ -19,8 +26,9 @@ app.get("/", homeController);
 
 //catch error here
 app.use((err, req, res, next) => {
+    // console.log(err.stack);
     res.status(400).json({
-        message: "Error happened",
+        message: err.message,
     });
 });
 
