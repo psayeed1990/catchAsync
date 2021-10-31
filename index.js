@@ -32,7 +32,9 @@ app.use((err, req, res, next) => {
     });
 });
 
+const PORT = process.env.PORT || 5000;
+
 //start server
-app.listen(5000, () => {
+app.listen(PORT, () => {
     console.log("Server started @5000");
 });
